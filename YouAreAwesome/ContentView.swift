@@ -12,25 +12,25 @@ struct ContentView: View {
     @State private var imageName = ""
     let youAreAweSomeMessage = "You are Awesome!"
     let youAreGreatMessage = "You are Great!"
+    let image0 = "image0"
+    let image1 = "image1"
     
     var body: some View {
         VStack {
             Spacer()
-            Image(systemName: imageName)
+            Image(imageName)
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(.orange)
+                .clipShape(RoundedRectangle(cornerRadius: 30.0))
+                .shadow(radius: 30.0)
             Text(message)
                 .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
+                .fontWeight(.heavy)
+                .foregroundStyle(.orange)
             Spacer()
             Button("Press Me") {
-                if imageName == "hand.thumbsup" {
-                    imageName = "sun.max.fill"
-                    message = youAreAweSomeMessage
-                } else {
-                    imageName = "hand.thumbsup"
-                    message = youAreGreatMessage
-                }
+                imageName = imageName == image0 ? image1 : image0
+                message = message == youAreAweSomeMessage ? youAreGreatMessage : youAreAweSomeMessage
             }
             .buttonStyle(.borderedProminent)
             .tint(.orange)
