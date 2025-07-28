@@ -10,39 +10,36 @@ import SwiftUI
 struct ContentView: View {
     @State private var message = ""
     @State private var imageName = "image"
-    @State private var imageNumber = 0
-    @State private var messageNumber = 0
 
     let messages: [String] = ["You are great",
                               "You are good!",
-                              "You are the best!"]
+                              "You are the best!",
+                              "You are the best. You should be famous. Let show the world who you are!"]
     
     var body: some View {
         VStack {
-            Spacer()
+            Text(message)
+                .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
+                .fontWeight(.heavy)
+                .foregroundStyle(.orange)
+                .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.5)
+                .frame(height: 130.0)
+                .animation(.default, value: message)
+                .animation(.easeInOut(duration: 0.15), value: message)
+            
             Image(imageName)
                 .resizable()
                 .scaledToFit()
                 .clipShape(RoundedRectangle(cornerRadius: 30.0))
                 .shadow(radius: 30.0)
-            Text(message)
-                .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
-                .fontWeight(.heavy)
-                .foregroundStyle(.orange)
+                .animation(.default, value: imageName)
+
             Spacer()
             Button("Show Message") {
-                imageNumber += 1
-                if imageNumber > 9 {
-                    imageNumber = 0
-                }
-                imageName = "image" + "\(imageNumber)"
-                print(imageName)
+                imageName = "image" + "\(Int.random(in: 0...9))"
                 
-                messageNumber += 1
-                if messageNumber > messages.count - 1 {
-                    messageNumber = 0
-                }
-                message = messages[messageNumber]
+                message = messages[Int.random(in: 0...messages.count-1)]
             }
             .buttonStyle(.borderedProminent)
             .tint(.orange)
