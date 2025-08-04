@@ -15,6 +15,8 @@ struct ContentView: View {
                               "You are good!",
                               "You are the best!",
                               "You are the best. You should be famous. Let show the world who you are!"]
+    @State var lastImageNumber = -1
+    @State var lastMessageNumber = -1
     
     var body: some View {
         VStack {
@@ -36,10 +38,23 @@ struct ContentView: View {
                 .animation(.default, value: imageName)
 
             Spacer()
+
             Button("Show Message") {
-                imageName = "image" + "\(Int.random(in: 0...9))"
+                var currentImageNumber: Int
+                repeat {
+                    currentImageNumber = Int.random(in: 0...9)
+                } while lastImageNumber == currentImageNumber
+                lastImageNumber = currentImageNumber
                 
-                message = messages[Int.random(in: 0...messages.count-1)]
+                imageName = "image" + "\(currentImageNumber)"
+                
+                var currentMessageNumber: Int
+                repeat {
+                    currentMessageNumber = Int.random(in: 0...messages.count-1)
+                } while lastMessageNumber == currentMessageNumber
+                lastMessageNumber = currentMessageNumber
+                
+                message = messages[currentMessageNumber]
             }
             .buttonStyle(.borderedProminent)
             .tint(.orange)

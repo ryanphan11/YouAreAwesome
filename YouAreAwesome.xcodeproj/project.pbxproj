@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		022183FE2E2C415600FA6830 /* YouAreAwesome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouAreAwesome.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02B07F082E41555D00CE8346 /* DiceRoll.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = DiceRoll.playground; path = ../DiceRoll.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +33,7 @@
 		022183F52E2C415600FA6830 = {
 			isa = PBXGroup;
 			children = (
+				02B07F082E41555D00CE8346 /* DiceRoll.playground */,
 				022184002E2C415600FA6830 /* YouAreAwesome */,
 				022183FF2E2C415600FA6830 /* Products */,
 			);
