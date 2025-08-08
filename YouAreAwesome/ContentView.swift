@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 struct ContentView: View {
     @State private var message = ""
@@ -17,6 +18,8 @@ struct ContentView: View {
                               "You are the best. You should be famous. Let show the world who you are!"]
     @State var lastImageNumber = -1
     @State var lastMessageNumber = -1
+    @State var lastSoundNumber = -1
+    @State var audioPlayer: AVAudioPlayer!
     
     var body: some View {
         VStack {
@@ -29,6 +32,8 @@ struct ContentView: View {
                 .frame(height: 130.0)
                 .animation(.default, value: message)
                 .animation(.easeInOut(duration: 0.15), value: message)
+            
+            Spacer()
             
             Image(imageName)
                 .resizable()
@@ -45,7 +50,6 @@ struct ContentView: View {
                     currentImageNumber = Int.random(in: 0...9)
                 } while lastImageNumber == currentImageNumber
                 lastImageNumber = currentImageNumber
-                
                 imageName = "image" + "\(currentImageNumber)"
                 
                 var currentMessageNumber: Int
@@ -53,8 +57,25 @@ struct ContentView: View {
                     currentMessageNumber = Int.random(in: 0...messages.count-1)
                 } while lastMessageNumber == currentMessageNumber
                 lastMessageNumber = currentMessageNumber
-                
                 message = messages[currentMessageNumber]
+                
+                var currentSoundNumber: Int
+                repeat {
+                    currentSoundNumber = Int.random(in: 0...5)
+                } while lastSoundNumber == currentSoundNumber
+                lastSoundNumber = currentSoundNumber
+                
+                let soundName = "sound\(currentSoundNumber)"
+                guard let soundFile = NSDataAsset(name: soundName) else {
+                    print("😡 Error could not read file named \(soundName).")
+                    return
+                }
+                do {
+                    audioPlayer = try AVAudioPlayer(data: soundFile.data)
+                    audioPlayer.play()
+                } catch {
+                    print("😡 Error: \(error.localizedDescription) creating audio player.")
+                }
             }
             .buttonStyle(.borderedProminent)
             .tint(.orange)
